@@ -8,7 +8,7 @@ spec:
     bootDisk:
       - initializeParams:
           - image: debian-cloud/debian-11
-    machineType: f1-micro
+    machineType: g1-small
     networkInterface:
       - networkRef:
           name: platform-network
