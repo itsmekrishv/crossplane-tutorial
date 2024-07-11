@@ -1,1 +1,41 @@
+apiVersion: container.gcp.upbound.io/v1beta1
+kind: Cluster
+metadata:
+  annotations:
+    meta.upbound.io/example-id: container/v1beta1/cluster
+  labels:
+    cluster_name: gke-cluster
+  name: gke-cluster
+spec:
+  forProvider:
+    deletionProtection: false
+    enableAutopilot: false
+    enableIntranodeVisibility: true
+    ipAllocationPolicy:
+      - {}
+    initialNodeCount: 1
+    location: us-central1
+    removeDefaultNodePool: true
+  writeConnectionSecretToRef:
+    name: gke-cluster-kubeconfig
+    namespace: crossplane-system
 
+---
+apiVersion: container.gcp.upbound.io/v1beta1
+kind: NodePool
+metadata:
+  labels:
+    cluster_name: gke-cluster
+  name: gke-cluster-nodepool
+spec:
+  forProvider:
+    clusterSelector:
+      matchLabels:
+        cluster_name: gke-cluster
+    nodeConfig:
+      - machineType: e2-small
+        diskSizeGb: 50
+        oauthScopes:
+          - https://www.googleapis.com/auth/cloud-platform
+        preemptible: true
+    nodeCount: 1
