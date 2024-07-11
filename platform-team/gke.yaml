@@ -1,5 +1,5 @@
 
-apiVersion: container.gcp.crossplane.io/v1beta2
+apiVersion: container.gcp.upbound.io/v1beta1
 kind: Cluster
 metadata:
   name: gke-cluster
@@ -12,7 +12,7 @@ spec:
         enabled: true
     network: "default"
 ---
-apiVersion: container.gcp.crossplane.io/v1beta1
+apiVersion: container.gcp.upbound.io/v1beta1
 kind: NodePool
 metadata:
   name: crossplane-np
